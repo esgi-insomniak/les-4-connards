@@ -83,6 +83,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'db',
         'PORT': 5432,
+        'CLIENT_ENCODING': 'UTF8',
     }
 }
 

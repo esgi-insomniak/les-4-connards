@@ -13,7 +13,3 @@ def index(request):
 def detail(request, book_id):
     question = get_object_or_404(Books, pk=book_id)
     return render(request, 'books/detail.html', {'question': question})
-
-def book_list(request):
-    response = "List of BOOKS"
-    return HttpResponse(response)

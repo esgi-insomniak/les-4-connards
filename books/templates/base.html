@@ -10,6 +10,9 @@
     {% tailwind_css %}
   </head>
   <body>
+    <header>
+      {% include "components/header.html" %}
+    </header>
     <main class="container">
         <div class="row">
             <div class="col">
@@ -18,5 +21,8 @@
             </div>
         </div>
     </main>
+    <footer>
+      {% include "components/footer.html" %}
+    </footer>
   </body>
 </html>

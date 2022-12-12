@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'books.apps.BooksConfig',
+    'librairie.apps.LibrairieConfig',
+    'lecture_groupe.apps.LectureGroupeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,4 +144,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-NPM_BIN_PATH = r"D:\NodeJs\npm.cmd"
+NPM_BIN_PATH = "/usr/local/bin/npm"

@@ -26,4 +26,6 @@ urlpatterns = [
     path("login", views.login_request, name="login"),
     path("logout", views.logout_request, name= "logout"),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('librairie/', include('librairie.urls')),
+    path('lecture/', include('lecture_groupe.urls')),
 ]

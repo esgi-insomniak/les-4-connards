@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if lecture_list %}
+        <ul>
+            {% for lecture in lecture_list %}
+                <li><a href="/lecture/detail/{{ lecture.id }}/">{{ lecture.livre.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Pas de groupe de lecture prevu</p>
+    {% endif %}
+{% endblock %}

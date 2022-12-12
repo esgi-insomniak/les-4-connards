@@ -4,7 +4,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /var/www
 COPY requirements.txt /var/www/
-RUN apt-get update
+RUN apt-get update \
+    && apt-get install -y nodejs npm
 RUN alias python=python3 && pip3 install -r requirements.txt
 COPY . /var/www/
 # migrate db

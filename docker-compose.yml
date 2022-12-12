@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: bash -c "npm install --prefix theme/static_src && npm --prefix theme/static_src run build:tailwind && python manage.py migrate && python manage.py tailwind start && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/var/www
     ports:

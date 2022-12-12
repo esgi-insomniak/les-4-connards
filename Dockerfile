@@ -5,11 +5,6 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /var/www
 COPY requirements.txt /var/www/
 RUN alias python=python3 && pip3 install -r requirements.txt
-RUN apt-get update \
-    && apt-get install curl -y \
-    && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g yarn \
-    && yarn install
+RUN apt-get update
 COPY . /var/www/
 EXPOSE 8000

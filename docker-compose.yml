@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/var/www
     ports:
@@ -20,14 +20,3 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
-
-  node:
-    image: node:latest
-    volumes:
-      - .:/var/www
-    working_dir: /var/www
-    command: npm run dev
-    ports:
-      - "3000:3000"
-    depends_on:
-      - web

@@ -4,11 +4,12 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /var/www
 COPY requirements.txt /var/www/
-RUN apt-get update \
-    && apt-get install -y nodejs npm
 RUN alias python=python3 && pip3 install -r requirements.txt
+RUN apt-get update \
+    && apt-get install curl -y \
+    && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g yarn \
+    && yarn install
 COPY . /var/www/
-# migrate db
-#RUN python manage.py makemigrations
-#RUN python manage.py migrate
 EXPOSE 8000

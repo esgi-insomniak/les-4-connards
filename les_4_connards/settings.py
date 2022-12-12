@@ -144,4 +144,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-NPM_BIN_PATH = "/usr/local/bin/npm"
+NPM_BIN_PATH = "/usr/bin/npm"

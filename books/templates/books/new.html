@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Nouveau livre</h1>
+    <form action="/books/new/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label for="title">Titre</label>
+        <input type="text" name="title" id="title">
+        <label for="author">Auteur</label>
+        <input type="text" name="author" id="author">
+        <label for="jaquette">Jaquette</label>
+        <input type="text" name="jaquette" id="jaquette">
+        <label for="editeur">Edteur</label>
+        <input type="text" name="editeur" id="editeur">
+        <label for="collection">Collection</label>
+        <input type="text" name="collection" id="collection">
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" id="genre">
+        <label for="librairie">Librairie</label>
+        <select name="librairie" id="librairie">
+            {% for librairie in librairies %}
+                <option value="{{librairie.id}}">{{librairie.nom}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Ajouter">
+    </form>
+{% endblock %}

@@ -4,7 +4,7 @@
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
-            <li><img src="{{ question.jaquette}}" alt="jaquette" ><a href="/books/detail/{{ question.id }}/">{{ question.title }}</a></li>
+            <li><img src="{{ question.jaquette}}" alt="jaquette" width="300px"><a href="/books/detail/{{ question.id }}/">{{ question.title }}</a></li>
         {% endfor %}
         </ul>
     {% else %}

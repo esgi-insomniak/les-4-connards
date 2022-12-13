@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Nouvelle lecture</h1>
+    <form action="/lecture/new/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label for="lieux">Lieux</label>
+        <input type="text" name="lieux" id="lieux">
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date">
+        <label for="heure">Heure</label>
+        <input type="time" name="heure" id="heure">
+        <label for="livre">Livre</label>
+        <select name="livre" id="livre">
+            {% for book in books %}
+                <option value="{{book.id}}">{{book.title}}</option>
+            {% endfor %}
+        </select>
+        <label for="librairie">Librairie</label>
+        <select name="librairie" id="librairie">
+            {% for librairie in librairies %}
+                <option value="{{librairie.id}}">{{librairie.nom}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Ajouter">
+    </form>
+{% endblock %}

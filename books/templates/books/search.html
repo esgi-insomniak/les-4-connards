@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Votre recherche pour {{ tamer }} : </h1>
+    {% if books %}
+        <ul>
+            {% for book in books %}
+                <li><img src="{{ book.jaquette }}" ><a href="/books/detail/{{ book.id }}/">{{ book.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Pas de livre correspondant a votre recherche</p>
+    {% endif %}
+{% endblock %}

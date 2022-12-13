@@ -63,3 +63,12 @@ def delete_book(request, book_id):
         return render(request, 'books/index.html')
     else:
         return render(request, 'books/index.html')
+
+def search_book(request):
+    if request.method == 'POST':
+        search = request.POST.get('q')
+        # return all objects that contain the search term in their title
+        book = Books.objects.all().filter(title__icontains=search)
+        return render(request, 'books/search.html', {'books': book, 'search': search})
+    else:
+        return render(request, 'books/index.html')

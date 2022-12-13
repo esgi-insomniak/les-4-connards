@@ -14,9 +14,12 @@
               <a class="btn btn-ghost normal-case text-xl">Ta Librairie</a>
           </div>
           <div class="flex-none gap-2">
-              <div class="form-control">
-                  <input type="text" placeholder="Rechercher un livre..." class="input input-bordered" />
-              </div>
+            <form action="/books/search/" method="POST">
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+              <input type="text" name="q" placeholder="Rechercher un livre..." class="input input-bordered" />
+              <input type="button" value="Rechercher" class="btn btn-primary" />
+            </form>
+
               <div class="dropdown dropdown-end">
                   <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                       <div class="w-10 rounded-full">

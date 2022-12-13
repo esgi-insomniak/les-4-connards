@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Nos librairies</h1>
+    {% if librairie_list %}
+    <ul>
+    {% for librairie in librairie_list %}
+        <li><a href="/librairie/detail/{{librairie.id}}/">{{ librairie.nom }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Pas de librairie.</p>
+{% endif %}
+{% endblock %}

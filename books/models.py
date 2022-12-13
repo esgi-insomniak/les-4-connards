@@ -2,16 +2,16 @@ from datetime import timezone
 import datetime
 from django.db import models
 
-# Create your models here.
 class Books(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    synopsis = models.CharField(max_length=255)
-    published_date = models.DateField('date published')
+    jaquette = models.URLField(max_length=1000, null=True, blank=True)
+    editeur = models.CharField(max_length=255, null=True, blank=True)
+    collection = models.CharField(max_length=255, null=True, blank=True)
+    genre = models.CharField(max_length=255, null=True, blank=True)
+    Librairie = models.CharField(max_length=255, null=True, blank=True)
+    date_emprut = models.DateField(null=True, blank=True)
+    date_retour = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return self.title
-
-    def was_published_recently(self):
-        return self.published_date >= timezone.now() - datetime.timedelta(days=1)
-    

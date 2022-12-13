@@ -1,9 +1,13 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/books/detail/{{ question.id }}/">{{ question.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available for now.</p>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><img src="{{ question.jaquette}}" alt="jaquette" width="300px"><a href="/books/detail/{{ question.id }}/">{{ question.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available for now.</p>
+    {% endif %}
+{% endblock %}

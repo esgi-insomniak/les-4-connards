@@ -17,6 +17,7 @@ def detail(request, book_id):
 
 def create_new_book(request):
     if request.user.is_superuser:
+        librairie = Librairie.objects.all()
         if request.method == 'POST':
             book = Books(
                 title = request.POST['title'],
@@ -25,13 +26,12 @@ def create_new_book(request):
                 editeur = request.POST['editeur'],
                 collection = request.POST['collection'],
                 genre = request.POST['genre'],
-                Librairie = request.POST['librairie'],
+                Librairie = Librairie.objects.get(pk=request.POST['librairie']),
                 )
             book.save()
-            return render(request, 'books/detail.html', {'question': book})
+            return render(request, 'books/detail.html', {'book': book})
         else:
-            librairie = Librairie.objects.all()
-            return render(request, 'books/new.html', {'librairie': librairie})
+            return render(request, 'books/new.html', {'librairies': librairie})
     else:
         return render(request, 'books/index.html')
 
@@ -47,12 +47,12 @@ def edit_book(request, book_id):
             book.editeur = request.POST.get('editeur')
             book.collection = request.POST.get('collection')
             book.genre = request.POST.get('genre')
-            book.Librairie = request.POST.get('librairie')
+            book.Librairie = Librairie.objects.get(pk=request.POST.get('librairie'))
             book.save()
             return render(request, 'books/detail.html', {'book': book})
         else:
             print("ca passe pas")
-            return render(request, 'books/update.html', {'book': book, 'librairie': librairie})
+            return render(request, 'books/update.html', {'book': book, 'librairies': librairie})
     else:
         return render(request, 'books/index.html')
 

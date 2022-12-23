@@ -12,6 +12,7 @@ class Books(models.Model):
     Librairie = models.CharField(max_length=255, null=True, blank=True)
     date_emprut = models.DateField(null=True, blank=True)
     date_retour = models.DateField(null=True, blank=True)
+    statut = models.BooleanField(default=False)
     
     def __str__(self):
         return self.title

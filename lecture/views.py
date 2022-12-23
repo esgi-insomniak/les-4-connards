@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, render
+from .forms import LectureForm
+from django.http import JsonResponse
 
 from .models import Lecture
 from books.models import Books
@@ -60,3 +62,20 @@ def delete_lecture(request, lecture_groupe_id):
         return render(request, 'lecture/index.html')
     else:
         return render(request, 'lecture/index.html')
+
+def calendar(request):
+    form = LectureForm()
+    return render(request, 'lecture/calendar.html', {'form': form})
+
+def api_events(request):
+    reading_sessions = Lecture.objects.all()
+    events = []
+    for session in reading_sessions:
+        events.append({
+            'id': session.id,
+            'title': session.title,
+            'start': session.date.strftime('%Y-%m-%d') + ' ' + session.start_time.strftime('%H:%M:%S'),
+            'end': session.date.strftime('%Y-%m-%d') + ' ' + session.end_time.strftime('%H:%M:%S'),
+            'url': '/sessions/' + str(session.id) + '/',
+        })
+    return JsonResponse(events, safe=False)

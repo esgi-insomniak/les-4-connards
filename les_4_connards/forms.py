@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from lecture.models import Lecture
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -14,3 +15,4 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+

@@ -1,0 +1,43 @@
+<!-- calendar.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'scheduler/css/scheduler.css' %}">
+    <script type="text/javascript" src="{% static 'scheduler/js/scheduler.js' %}"></script>
+    <div id="calendar"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new Scheduler(calendarEl, {
+                events_source: '/api/events/',
+                view: 'month',
+                tmpl_path: '/static/scheduler/tmpls/',
+                tmpl_cache: false,
+                day: new Date().toISOString().slice(0,10),
+                onAfterEventsLoad: function(events) {
+                    if(!events) {
+                        return;
+                    }
+                    var list = $('#eventlist');
+                    list.html('');
+                    $.each(events, function(key, val) {
+                        $(document.createElement('li'))
+                            .html('<a href="' + val.url + '">' + val.title + '</a>')
+                            .appendTo(list);
+                    });
+                },
+                onAfterViewLoad: function(view) {
+                    $('.page-header h3').text(this.getTitle());
+                    $('.btn-group button').removeClass('active');
+                    $('button[data-calendar-view="' + view + '"]').addClass('active');
+                },
+                classes: {
+                    months: {
+                        general: 'label'
+                    }
+                }
+            });
+            calendar.view();
+        });
+    </script>
+{% endblock %}

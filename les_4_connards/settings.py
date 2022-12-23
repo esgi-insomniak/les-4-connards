@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django_browser_reload',
+    'schedule',
+    'les_4_connards',
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -144,3 +146,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 NPM_BIN_PATH = "/usr/bin/npm"
+

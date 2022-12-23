@@ -15,7 +15,11 @@ def index(request):
 
 def detail(request, lecture_groupe_id):
     question = get_object_or_404(Lecture, pk=lecture_groupe_id)
-    return render(request, 'lecture/detail.html', {'lecture': question})
+    if request.user in question.participants.all():
+        is_participant = False
+    else:
+        is_participant = True
+    return render(request, 'lecture/detail.html', {'lecture': question, 'is_participant': is_participant})
 
 def create_new_lecture(request):
     if request.user.is_superuser:
@@ -63,19 +67,26 @@ def delete_lecture(request, lecture_groupe_id):
     else:
         return render(request, 'lecture/index.html')
 
-def calendar(request):
-    form = LectureForm()
-    return render(request, 'lecture/calendar.html', {'form': form})
-
-def api_events(request):
-    reading_sessions = Lecture.objects.all()
-    events = []
-    for session in reading_sessions:
-        events.append({
-            'id': session.id,
-            'title': session.title,
-            'start': session.date.strftime('%Y-%m-%d') + ' ' + session.start_time.strftime('%H:%M:%S'),
-            'end': session.date.strftime('%Y-%m-%d') + ' ' + session.end_time.strftime('%H:%M:%S'),
-            'url': '/sessions/' + str(session.id) + '/',
+def events(request):
+    events = Lecture.objects.all()
+    events_list = []
+    for event in events:
+        events_list.append({
+            'id': event.id,
+            'title': event.Books.title,
+            'start': event.date,
+            'end': event.date,
         })
-    return JsonResponse(events, safe=False)
+    return JsonResponse(events_list, safe=False)
+
+def participate_lecture(request, lecture_groupe_id):
+    lecture = Lecture.objects.get(pk=lecture_groupe_id)
+    if request.user in lecture.participants.all():
+        lecture.participants.remove(request.user)
+    else:
+        lecture.participants.add(request.user)
+    if request.user in lecture.participants.all():
+        is_participant = False
+    else:
+        is_participant = True
+    return render(request, 'lecture/detail.html', {'lecture': lecture, 'is_participant': is_participant})

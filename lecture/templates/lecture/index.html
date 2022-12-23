@@ -1,15 +1,28 @@
-{% extends "base.html" %}
+<!-- calendar.html -->
+{% extends 'base.html' %}
 
 {% block content %}
-    <h1>Liste des groupes de lecture</h1>
-
-    {% if lecture_list %}
-        <ul>
-            {% for lecture in lecture_list %}
-                <li><a href="/lecture/detail/{{ lecture.id }}/">{{ lecture.Books.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Pas de groupe de lecture prevu</p>
-    {% endif %}
+<h1>Liste des groupes de lecture</h1>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.1/index.global.min.js"></script>
+{% if user.is_staff or user.is_superuser %}
+<a href="/lecture/new">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+</a>
+{% endif %}
+<div id="calendar" style="width: 70%;"></div>
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: '/lecture/events',
+            eventClick: function(event, jsEvent, view) {
+                window.location.href = '/lecture/detail/' + event.event['_def'].publicId + '/';
+            },
+        });
+        calendar.render();
+      });
+</script>
 {% endblock %}

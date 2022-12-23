@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 from books.models import Books
 from librairie.models import Librairie
@@ -9,7 +10,7 @@ class Lecture(models.Model):
     date = models.DateField()
     heure = models.TimeField()
     Books = models.ForeignKey(Books, on_delete=models.CASCADE)
-    participants = ArrayField(models.CharField(max_length=255, blank=True), null=True, blank=True)
+    participants = models.ManyToManyField(User, related_name='lectures', blank=False, default=[], null=True)
     Librairie = models.ForeignKey(Librairie, on_delete=models.CASCADE)
 
     def __str__(self):

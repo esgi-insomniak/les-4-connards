@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Nouvelle librairie</h1>
+    <form action="/librairie/new/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" id="nom">
+        <label for="adresse">Adresse</label>
+        <input type="text" name="adresse" id="adresse">
+        <label for="telephone">Téléphone</label>
+        <input type="text" name="telephone" id="telephone">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+        <hr>
+        <div>
+            <p>Ajouter l'utilisateur Librairie en définissant un mot de passe</p>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <input type="submit" value="Ajouter">
+    </form>
+{% endblock %}

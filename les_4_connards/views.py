@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 
+from books.models import Books
+
 def register_request(request):
 	if request.method == "POST":
 		form = RegisterForm(request.POST)
@@ -35,7 +37,8 @@ def login_request(request):
 	return render(request=request, template_name="main/login.html", context={"login_form":form})
 
 def index(request):
-	return render(request, 'main/index.html')
+	books = Books.objects.all().order_by('?')[:3]
+	return render(request, 'main/index.html', {'books': books})
 
 def logout_request(request):
 	logout(request)

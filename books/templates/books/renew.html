@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Emprunt d'un livre</h1>
+    <form action="/books/loan/renew/{{librairie_id}}/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label for="livre">Livre</label>
+        <select name="livre" id="livre">
+            <option value="{{ loan.book.id }}">{{ loan.book.title }}</option>
+        </select>
+        <label for="utilisateur">Utilisateur</label>
+        <select name="utilisateur" id="utilisateur">
+            <option value="{{ loan.borrowed_by.id }}">{{ loan.borrowed_by.username }}</option>
+        </select>
+        <label for="date_emprunt">Date d'emprunt</label>
+        <input type="date" name="date_emprunt" id="date_emprunt" value="{{loan.book.date_emprut|date:'Y-m-d'}}">
+        <label for="date_retour">Date de retour</label>
+        <input type="date" name="date_retour" id="date_retour" value="{{loan.book.date_retour|date:'Y-m-d'}}">
+        <input type="submit" value="Renouveler">
+    </form>
+{% endblock %}

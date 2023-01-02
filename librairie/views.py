@@ -28,7 +28,7 @@ def create_new_librairie(request):
             librairie.save()
             if request.POST['password']:
                 user = User.objects.create_user(
-                    username=request.POST['nom'],
+                    username=request.POST['nom'].replace(" ", "_").lower(),
                     password=request.POST['password'],
                     email=request.POST['email'],
                     is_staff=True,

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static  %}
+
+{% block title %}
+    Mon Profile
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h1>Mon Profile</h1>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+        </div>
+        <div>
+            <div>
+                <h1>Mes emprunts</h1>
+                {% for livre in livre_emprunte %}
+                    <p>{{ livre.book.title }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                <h1>Mes futures sessions de lectures</h1>
+                {% for lecture in lectures %}
+                    {% if lecture.date|date:"Y-m-d" < now %}
+                        <p>{{ lecture.lieux }} - {{lecture.date}} - {{ lecture.heure }} - {{ lecture.Books }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

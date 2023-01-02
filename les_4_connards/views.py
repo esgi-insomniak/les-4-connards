@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 
-from books.models import Books
+from books.models import Books, Loan
+from lecture.models import Lecture
 
 def register_request(request):
 	if request.method == "POST":
@@ -44,3 +45,9 @@ def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("/")
+
+def profile(request):
+	#récupérer les lecture auxquelle l'utilisateur participe
+	lecture = Lecture.objects.filter(participants__in=[request.user])
+	livre_emprunte = Loan.objects.filter(borrowed_by=request.user)
+	return render(request, 'user/profile.html', {'lectures': lecture, 'livre_emprunte': livre_emprunte})

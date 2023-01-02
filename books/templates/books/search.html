@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Votre recherche pour {{ tamer }} : </h1>
+    <h1>Votre recherche pour <b>{{ search }}</b> : </h1>
     {% if books %}
         <ul>
             {% for book in books %}

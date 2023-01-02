@@ -1,8 +1,10 @@
 import json
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.models import User
 
 from .models import Books
 from librairie.models import Librairie
+from .models import Loan
 
 def index(request):
     book_list = Books.objects.order_by('title')[:5]
@@ -13,7 +15,8 @@ def index(request):
 
 def detail(request, book_id):
     question = get_object_or_404(Books, pk=book_id)
-    return render(request, 'books/detail.html', {'book': question})
+    librairie = Librairie.objects.get(nom=question.Librairie)
+    return render(request, 'books/detail.html', {'book': question, 'librairie': librairie})
 
 def create_new_book(request):
     if request.user.is_superuser:
@@ -72,3 +75,30 @@ def search_book(request):
         return render(request, 'books/search.html', {'books': book, 'search': search})
     else:
         return render(request, 'books/index.html')
+
+def loan_book(request, librairie_id):
+    librairie = Librairie.objects.get(pk=librairie_id)
+    if request.user.username == librairie.nom.replace(" ", "_").lower():
+        user = User.objects.exclude(pk=request.user.pk)
+        books = Books.objects.all().filter(Librairie=librairie.nom)
+        if request.method == 'POST':
+            book = Books.objects.get(pk=request.POST.get('livre'))
+            book.borrowed_by = User.objects.get(pk=request.POST.get('utilisateur'))
+            book.statut = True
+            book.date_emprut = request.POST.get('date_emprut')
+            book.date_retour = request.POST.get('date_retour')
+            book.save()
+            loan = Loan(
+                date_retour = request.POST.get('date_retour'),
+                borrowed_by = User.objects.get(pk=request.POST.get('utilisateur')),
+                book = book,
+                )
+            loan.save()
+            return render(request, 'books/loan.html', {'livres': books, 'librairie': librairie, 'utilisateurs': user})
+        return render(request, 'books/loan.html', {'livres': books, 'librairie': librairie, 'utilisateurs': user})
+    else:
+        book_list = Books.objects.order_by('title')[:5]
+        context = {
+            'latest_question_list': book_list,
+        }
+        return render(request, 'books/index.html', context)

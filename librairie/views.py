@@ -6,10 +6,28 @@ from .models import Librairie
 
 
 def librairie(request):
-    librairie_list = Librairie.objects.order_by('nom')[:5]
-    context = {
-        'librairie_list': librairie_list,
-    }
+    if request.method == 'POST':
+        if request.POST['ville'] != '':
+            librairie_list = Librairie.objects.filter(ville=request.POST['ville'])
+            lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+            context = {
+                'librairie_list': librairie_list,
+                'lieux': lieux,
+            }
+        else:
+            librairie_list = Librairie.objects.order_by('nom')[:5]
+            lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+            context = {
+                'librairie_list': librairie_list,
+                'lieux': lieux,
+            }
+    else:
+        librairie_list = Librairie.objects.order_by('nom')[:5]
+        lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+        context = {
+            'librairie_list': librairie_list,
+            'lieux': lieux,
+        }
     return render(request, 'librairie/index.html', context)
 
 def librairie_detail(request, librairie_id):

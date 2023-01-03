@@ -2,6 +2,16 @@
 
 {% block content %}
     <h1>Nos librairies</h1>
+    <form method="POST" action="/librairie/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <select name="ville">
+            <option value="">Toutes les villes</option>
+            {% for lieu in lieux %}
+                <option value="{{ lieu }}">{{ lieu }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Rechercher dans cette zone">
+    </form>
     {% if librairie_list %}
     <ul>
     {% for librairie in librairie_list %}

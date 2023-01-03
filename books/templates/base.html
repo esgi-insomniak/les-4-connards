@@ -26,7 +26,7 @@
               <input type="text" name="q" placeholder="Rechercher un livre..." class="input input-bordered" />
               <input type="button" value="Rechercher" class="btn btn-primary" />
             </form>
-
+            {% if user.is_authenticated %}
               <div class="dropdown dropdown-end">
                   <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                       <div class="w-10 rounded-full">
@@ -39,14 +39,17 @@
                               Profile
                           </a>
                       </li>
-                      <li><a>Settings</a></li>
                       <li><a href="/logout">Logout</a></li>
                   </ul>
               </div>
+            {% else %}
+                <a href="/login" class="btn btn-primary">Login</a>
+                <a href="/register" class="btn btn-primary">Register</a>
+            {% endif %}
           </div>
         </header>
 
-        <main class="container min-h-screen">
+        <main class="min-h-screen">
             {% block content %}
 
             {% endblock %}

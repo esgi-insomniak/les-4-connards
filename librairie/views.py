@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 
 from .models import Librairie
-
+from books.models import Books
 
 def librairie(request):
     if request.method == 'POST':
@@ -32,7 +32,8 @@ def librairie(request):
 
 def librairie_detail(request, librairie_id):
     librairie = get_object_or_404(Librairie, pk=librairie_id)
-    return render(request, 'librairie/detail.html', {'librairie': librairie})
+    books = Books.objects.filter(Librairie=librairie.nom)
+    return render(request, 'librairie/detail.html', {'librairie': librairie, 'books': books})
 
 def create_new_librairie(request):
     if request.user.is_superuser:

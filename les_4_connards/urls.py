@@ -28,5 +28,6 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path('librairie/', include('librairie.urls')),
     path('lecture/', include('lecture.urls')),
-    path('profile/', views.profile, name='profile')
+    path('profile/', views.profile, name='profile'),
+    path('forum/', include('forum.urls')),
 ]

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ thread.title }}</h1>
+    <h2>Commentaires</h2>
+    {% for post in posts %}
+        <h3>{{ post.author }}</h3>
+        <p>{{ post.content }}</p>
+    {% endfor %}
+    <form method="post" action="/forum/thread/{{thread.id}}/">
+        {% csrf_token %}
+        <textarea name="content"></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
+{% endblock %}

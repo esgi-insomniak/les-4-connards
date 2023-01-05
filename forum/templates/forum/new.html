@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Crée une nouvelle discussion</h1>
+    <form action="/forum/new/" method="post">
+        {% csrf_token %}
+        <label for="title">Titre de la conversation</label>
+        <input type="text" name="title" id="title" class="form-control">
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
+{% endblock %}

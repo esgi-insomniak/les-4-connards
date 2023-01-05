@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'books.apps.BooksConfig',
     'librairie.apps.LibrairieConfig',
     'lecture.apps.LectureConfig',
+    'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

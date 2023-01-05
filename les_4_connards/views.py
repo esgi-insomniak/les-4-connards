@@ -38,7 +38,7 @@ def login_request(request):
 	return render(request=request, template_name="main/login.html", context={"login_form":form})
 
 def index(request):
-	books = Books.objects.all().order_by('?')[:3]
+	books = Books.objects.all().order_by('?')[:4]
 	return render(request, 'main/index.html', {'books': books})
 
 def logout_request(request):

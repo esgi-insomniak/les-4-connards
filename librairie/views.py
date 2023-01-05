@@ -3,18 +3,37 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 
 from .models import Librairie
-
+from books.models import Books
 
 def librairie(request):
-    librairie_list = Librairie.objects.order_by('nom')[:5]
-    context = {
-        'librairie_list': librairie_list,
-    }
+    if request.method == 'POST':
+        if request.POST['ville'] != '':
+            librairie_list = Librairie.objects.filter(ville=request.POST['ville'])
+            lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+            context = {
+                'librairie_list': librairie_list,
+                'lieux': lieux,
+            }
+        else:
+            librairie_list = Librairie.objects.order_by('nom')[:5]
+            lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+            context = {
+                'librairie_list': librairie_list,
+                'lieux': lieux,
+            }
+    else:
+        librairie_list = Librairie.objects.order_by('nom')[:5]
+        lieux = Librairie.objects.values_list('ville', flat=True).distinct()
+        context = {
+            'librairie_list': librairie_list,
+            'lieux': lieux,
+        }
     return render(request, 'librairie/index.html', context)
 
 def librairie_detail(request, librairie_id):
     librairie = get_object_or_404(Librairie, pk=librairie_id)
-    return render(request, 'librairie/detail.html', {'librairie': librairie})
+    books = Books.objects.filter(Librairie=librairie.nom)
+    return render(request, 'librairie/detail.html', {'librairie': librairie, 'books': books})
 
 def create_new_librairie(request):
     if request.user.is_superuser:

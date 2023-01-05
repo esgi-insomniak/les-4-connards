@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Liste des discussions</h1>
+    {% if user.is_authenticated %}
+        <a href="/forum/new/" class="btn btn-primary">Créer une discussion</a>
+    {% endif %}
+    {% if threads %}
+        {% for thread in threads %}
+            <div class="thread">
+                <h2><a href="/forum/thread/{{thread.id}}">{{ thread.title }}</a></h2>
+                <p>By {{ thread.author.username }} on {{ thread.created_at }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No thread are available for now.</p>
+    {% endif %}
+{% endblock %}

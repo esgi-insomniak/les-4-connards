@@ -81,7 +81,7 @@ def search_book(request):
 
 def loan_book(request, librairie_id):
     librairie = Librairie.objects.get(pk=librairie_id)
-    if request.user.username == librairie.nom.replace(" ", "_").lower():
+    if request.user.username == librairie.nom.replace(" ", "_").lower() or request.user.is_superuser:
         user = User.objects.exclude(pk=request.user.pk)
         books = Books.objects.all().filter(Librairie=librairie.nom)
         if request.method == 'POST':
@@ -109,9 +109,10 @@ def loan_book(request, librairie_id):
 
 def loan_list(request, librairie_id):
     librairie = Librairie.objects.get(pk=librairie_id)
-    if request.user.username == librairie.nom.replace(" ", "_").lower():
+    if request.user.username == librairie.nom.replace(" ", "_").lower() or request.user.is_superuser:
         loan = Loan.objects.all().filter(Librairie=librairie)
-        return render(request, 'books/loan_list.html', {'loans': loan})
+        now = datetime.now()
+        return render(request, 'books/loan_list.html', {'loans': loan, 'now': now})
     else:
         book_list = Books.objects.order_by('title')[:5]
         context = {

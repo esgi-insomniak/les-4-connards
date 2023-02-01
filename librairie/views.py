@@ -61,6 +61,7 @@ def create_new_librairie(request):
 
 def edit_librairie(request, librairie_id):
     if request.user.is_superuser:
+        
         if request.method == 'POST':
             librairie = Librairie.objects.get(pk=librairie_id)
             librairie.nom = request.POST['nom'],
@@ -76,7 +77,7 @@ def edit_librairie(request, librairie_id):
 
 def delete_librairie(request, librairie_id):
     if request.user.is_superuser:
-        librairie = get_object_or_404(Lecture, pk=librairie_id)
+        librairie = get_object_or_404(Librairie, pk=librairie_id)
         librairie.delete()
         return render(request, 'librairie/index.html')
     else:

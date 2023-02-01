@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Crée une nouvelle discussion</h1>
-    <form action="/forum/new/" method="post">
+    <h1 class="text-xl text-center text-white my-5">Crée une nouvelle discussion</h1>
+    <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/forum/new/" method="post">
         {% csrf_token %}
-        <label for="title">Titre de la conversation</label>
-        <input type="text" name="title" id="title" class="form-control">
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <label class="label-text" for="title">Titre de la conversation</label>
+        <input class="input w-full mb-2" type="text" name="title" id="title" class="form-control">
+        <button class="btn" type="submit" class="btn btn-primary">Créer un nouveau thread</button>
     </form>
 {% endblock %}

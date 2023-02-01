@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Liste des discussions</h1>
+    <h1 class="text-xl text-center text-white my-5">Liste des discussions</h1>
     {% if user.is_authenticated %}
-        <a href="/forum/new/" class="btn btn-primary">Créer une discussion</a>
+        <a href="/forum/new/" class="btn btn-primary m-5">Créer une discussion</a>
     {% endif %}
     {% if threads %}
+    <div class="flex justify-around">
         {% for thread in threads %}
-            <div class="thread">
-                <h2><a href="/forum/thread/{{thread.id}}">{{ thread.title }}</a></h2>
-                <p>By {{ thread.author.username }} on {{ thread.created_at }}</p>
+            <div class="thread card bg-white p-5 m-5">
+                <h2 class="text-lg"><a href="/forum/thread/{{thread.id}}">{{ thread.title }}</a></h2>
+                <p>By {{ thread.author.username }} le {{ thread.created_at }}</p>
             </div>
         {% endfor %}
+    </div>
     {% else %}
-        <p>No thread are available for now.</p>
+        <p>Pas de thread disponnible.</p>
     {% endif %}
 {% endblock %}

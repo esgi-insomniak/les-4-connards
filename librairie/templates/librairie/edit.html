@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Modification de la librairie {{librairie.nom}}</h1>
-    <form action="/librairie/edit/{{librairie.id}}/" method="post">
+    <h1 class="text-xl text-center text-white my-5">Modification de la librairie {{librairie.nom}}</h1>
+    <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/librairie/edit/{{librairie.id}}/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <label for="nom">Nom</label>
-        <input type="text" name="nom" id="nom" value="{{librairie.nom}}">
-        <label for="adresse">Adresse</label>
-        <input type="text" name="adresse" id="adresse" value="{{librairie.adresse}}">
-        <label for="telephone">Téléphone</label>
-        <input type="text" name="telephone" id="telephone" value="{{librairie.telephone}}">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" value="{{librairie.email}}">
-        <input type="submit" value="Modifier">
+        <label class="label-text" for="nom">Nom</label>
+        <input class="input w-full mb-2" type="text" name="nom" id="nom" value="{{librairie.nom}}">
+        <label class="label-text" for="adresse">Adresse</label>
+        <input class="input w-full mb-2" type="text" name="adresse" id="adresse" value="{{librairie.adresse}}">
+        <label class="label-text" for="telephone">Téléphone</label>
+        <input class="input w-full mb-2" type="text" name="telephone" id="telephone" value="{{librairie.telephone}}">
+        <label class="label-text" for="email">Email</label>
+        <input class="input w-full mb-2" type="text" name="email" id="email" value="{{librairie.email}}">
+        <input class="btn" type="submit" value="Modifier">
     </form>
 {% endblock %}

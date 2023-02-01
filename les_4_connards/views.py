@@ -3,6 +3,7 @@ from .forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from datetime import datetime
 
 from books.models import Books, Loan
 from lecture.models import Lecture
@@ -50,4 +51,5 @@ def profile(request):
 	#récupérer les lecture auxquelle l'utilisateur participe
 	lecture = Lecture.objects.filter(participants__in=[request.user])
 	livre_emprunte = Loan.objects.filter(borrowed_by=request.user)
-	return render(request, 'user/profile.html', {'lectures': lecture, 'livre_emprunte': livre_emprunte})
+	now = datetime.now()
+	return render(request, 'user/profile.html', {'lectures': lecture, 'livre_emprunte': livre_emprunte, 'now': now})

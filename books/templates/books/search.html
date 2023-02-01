@@ -1,13 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Votre recherche pour <b>{{ search }}</b> : </h1>
+    <h1 class="text-xl text-white m-5">Votre recherche pour <b>{{ search }}</b> : </h1>
     {% if books %}
-        <ul>
+        <div class="flex justify-around flex-wrap">
             {% for book in books %}
-                <li><img src="{{ book.jaquette }}" ><a href="/books/detail/{{ book.id }}/">{{ book.title }}</a></li>
+            <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-1/4 m-5">
+                <div class="mx-auto">
+                    <img class="mr-4 w-full" src="{{ book.jaquette }}" alt="" aria-hidden="true" />
+                </div>
+                <div class="flex items-center ">
+                    <div>
+                        <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            {{ book.title }}
+                        </p>
+                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            {{ book.author }}
+                        </p>
+                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            Librairie : {{ book.Librairie }} - {{ librairie.adresse }}
+                        </p>
+                        {% if book.statut %}
+                        <p>Date de retour le : {{book.date_retour}}</p>
+                        {% else %}
+                        <div class="flex flex-col">
+                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Livre disponnible</p>
+                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Veuillez vous rapprochez de votre librairie</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>Pas de livre correspondant a votre recherche</p>
     {% endif %}

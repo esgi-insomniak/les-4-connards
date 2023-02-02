@@ -94,10 +94,10 @@ WSGI_APPLICATION = 'les_4_connards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
+        'NAME': os.environ.get('POSTGRES_DB_NAME'),
+        'USER': os.environ.get('POSTGRES_DB_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('HOST_DOMAIN') or 'db',
+        'HOST': os.environ.get('POSTGRES_HOST') or 'db',
         'PORT': os.environ.get('POSTGRES_PORT') or 5432,
         'CLIENT_ENCODING': 'UTF8',
     }

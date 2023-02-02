@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user.is_superuser %}
+<div class="m-5 card bg-gray-800 w-96">
+    <h1 class="text-lg text-center text-white my-3">Boite à outils</h1>
+    <ul class="flex justify-around my-3 text-white">
+        <li><a href="/librairie/new">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            </a></li>  
+    </ul>
+</div>
+{% endif %}
+<h1 class="text-xl text-center text-white my-5">Nos librairies</h1>
+    <form class="card bg-white p-5 m-5 w-96" method="POST" action="/librairie/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <select class="input w-full mb-2" name="ville">
+            <option value="">Toutes les villes</option>
+            {% for lieu in lieux %}
+                <option value="{{ lieu }}">{{ lieu }}</option>
+            {% endfor %}
+        </select>
+        <input class="btn" type="submit" value="Rechercher dans cette zone">
+    </form>
+    {% if librairie_list %}
+    <div class="flex justify-around flex-wrap">
+    {% for librairie in librairie_list %}
+        <div class="card bg-white m-5 p-5 w-40">
+            <h5 class="text-lg">{{ librairie.nom }}</h5>
+            <a class="btn btn-primary" href="/librairie/detail/{{librairie.id}}/">Détails</a>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>Pas de librairie.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-xl text-center text-white my-5">Nouvelle librairie</h1>
+    <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/librairie/new/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label class="label-text" for="nom">Nom</label>
+        <input class="input w-full mb-2" type="text" name="nom" id="nom">
+        <label class="label-text" for="adresse">Adresse</label>
+        <input class="input w-full mb-2" type="text" name="adresse" id="adresse">
+        <label class="label-text" for="telephone">Téléphone</label>
+        <input class="input w-full mb-2" type="text" name="telephone" id="telephone">
+        <label class="label-text" for="email">Email</label>
+        <input class="input w-full mb-2" type="text" name="email" id="email">
+        <hr>
+        <div class="my-5">
+            <p>Ajouter l'utilisateur Librairie en définissant un mot de passe</p>
+            <label class="label-text" for="password">Mot de passe</label>
+            <input class="input w-full mb-2" type="password" name="password" id="password">
+        </div>
+        <input class="btn" type="submit" value="Ajouter">
+    </form>
+{% endblock %}

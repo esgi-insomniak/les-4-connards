@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Mon Profile
+{% endblock %}
+
+{% block content %}
+<div>
+    <div class="m-5">
+        <h1 class="text-xl text-white text-center my-5">Mon Profile</h1>
+        <div class="card w-96 bg-white shadow-xl mx-auto">
+            <div class="card-body">
+                <h2 class="card-title">Username: {{ user.username }}</h2>
+                <h3>Email: {{ user.email }}</h3>
+                <p>Last Name: {{ user.last_name }}</p>
+                <p>First Name: {{ user.first_name }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="m-5">
+            <h1 class="text-xl text-white text-center my-5">Mes emprunts</h1>
+            <div class="flex justify-around mx-auto w-full flex-wrap m-5">
+                {% for livre in livre_emprunte %}
+                <div class="card card-compact w-96 bg-white shadow-xl">
+                    <figure><img src="{{livre.book.jaquette}}" width="300px" /></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ livre.book.title }}</h2>
+                        <div class="flex justify-between">
+                            <p>Date de retour le : {{livre.book.date_retour}}</p>
+                            {% if livre.book.date_retour|date:"Y-m-d" < now|date:"Y-m-d" %} <div
+                                class="badge badge-error gap-2">
+                                Retard
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="m-5">
+        <h1 class="text-xl text-white text-center my-5">Mes futures sessions de lectures</h1>
+        <div class="flex justify-around mx-auto w-full flex-wrap m-5">
+            {% for lecture in lectures %}
+            {% if lecture.date|date:"Y-m-d" > now|date:"Y-m-d" %}
+            <div class="card w-96 bg-white shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">{{ lecture.Books }}</h2>
+                    <p>Lieux : {{ lecture.lieux }}</p>
+                    <p>Date et heures : {{lecture.date}} - {{ lecture.heure }}</p>
+                    <div class="card-actions justify-end">
+                        <a class="btn btn-primary" href="/librairie/detail/{{lecture.Librairie.id}}">Localiser la
+                            librairie</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

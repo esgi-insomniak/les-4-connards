@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}        
+
+<div class="bg-no-repeat bg-cover bg-center relative">
+	<div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
+	  <div class="flex justify-center self-center mx-auto my-auto">
+		<div class="p-12 bg-white mx-auto rounded-2xl w-100 ">
+		  <div class="mb-4">
+			<h3 class="font-semibold text-2xl text-gray-800">Register</h3>
+			<p class="text-gray-500">Please register to access the website.</p>
+		  </div>
+		  <form method="POST">
+			{% csrf_token %}
+			<div class="space-y-5">
+			  <div class="space-y-2">
+				<label class="text-sm font-medium text-gray-700 tracking-wide">Username</label>
+				<input
+				  class="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="text" placeholder="Username" name="username">
+				  <small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+			  </div>
+			  <div class="space-y-2">
+				<label class="text-sm font-medium text-gray-700 tracking-wide">Email</label>
+				<input
+				  class="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="email" placeholder="mail@mail.fr" name="email">
+			  </div>
+			  <div class="space-y-2">
+				<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide">
+				  Password
+				</label>
+				<input
+				  class="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="password" placeholder="Enter your password" name="password1">
+				<small>
+					<ul>
+						<li>Your password can’t be too similar to your other personal information.</li>
+						<li>Your password must contain at least 8 characters.</li>
+						<li>Your password can’t be a commonly used password.</li>
+						<li>Your password can’t be entirely numeric.</li>
+					</ul>
+				</small>
+			  </div>
+			  <div class="space-y-2">
+				<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide">
+				  Confirm your password
+				</label>
+				<input
+				  class="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="password" placeholder="Confirm your password" name="password2">
+				<small>
+					Enter the same password as before, for verification.
+				</small>
+			  </div>
+			  <div>
+				<button type="submit"
+				  class="w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+				  Register
+				</button>
+			  </div>
+			  <div>
+				<a href="{% url 'login' %}" class="w-full flex justify-center bg-gray-400  hover:bg-gray-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+				  If you already have an account, Login instead.
+				  </a>
+			  </div>
+			</div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+{% endblock %}

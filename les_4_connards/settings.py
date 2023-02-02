@@ -33,13 +33,21 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'books.apps.BooksConfig',
+    'librairie.apps.LibrairieConfig',
+    'lecture.apps.LectureConfig',
+    'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 ]
+
+TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,12 +59,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+CSRF_TRUSTED_ORIGINS = [os.environ.get('TRUSTED_DOMAINS') or 'http://localhost:8000']
+
 ROOT_URLCONF = 'les_4_connards.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, '/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,11 +94,11 @@ WSGI_APPLICATION = 'les_4_connards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
+        'NAME': os.environ.get('POSTGRES_DB_NAME'),
+        'USER': os.environ.get('POSTGRES_DB_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': 5432,
+        'HOST': os.environ.get('POSTGRES_HOST') or 'db',
+        'PORT': os.environ.get('POSTGRES_PORT') or 5432,
         'CLIENT_ENCODING': 'UTF8',
     }
 }
@@ -123,10 +139,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+NPM_BIN_PATH = "/usr/bin/npm"
+

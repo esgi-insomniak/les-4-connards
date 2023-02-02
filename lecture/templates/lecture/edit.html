@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-xl text-center text-white my-5">Modification de la lecture pour le livre {{lecture.book.title}}</h1>
+    <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/lecture/edit/{{lecture.id}}/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label class="label-text" for="lieux">Lieux</label>
+        <input class="input w-full mb-2" type="text" name="lieux" id="lieux" value="{{lecture.lieux}}">
+        <label class="label-text" for="date">Date</label>
+        <input class="input w-full mb-2" type="date" name="date" id="date" value="{{lecture.date}}">
+        <label class="label-text" for="heure">Heure</label>
+        <input class="input w-full mb-2" type="time" name="heure" id="heure" value="{{lecture.heure}}">
+        <label class="label-text" for="livre">Livre</label>
+        <select class="input w-full mb-2" name="livre" id="livre">
+            {% for book in books %}
+                <option value="{{book.id}}">{{book.title}}</option>
+            {% endfor %}
+        </select>
+        <label class="label-text" for="librairie">Librairie</label>
+        <select class="input w-full mb-2" name="librairie" id="librairie">
+            {% for librairie in librairies %}
+                <option value="{{librairie.id}}">{{librairie.nom}}</option>
+            {% endfor %}
+        </select>
+        <input class="btn" type="submit" value="Modifier">
+    </form>
+{% endblock %}

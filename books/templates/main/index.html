@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load static  %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block content %}
+    <div class="hero min-h-screen/2" style="background-image: url({% static '/img/bg-stars.jpg' %});">
+        <div class="hero-overlay bg-opacity-60"></div>
+        <div class="hero-content text-left text-neutral-content">
+            <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold">"Lire, c'est vivre en pleine lumière"</h1>
+                <p class="mb-5">Ta Librairie propose aujourd'hui des centaines d'ouvrages à la portée de tous et sur de nombreux thèmes...</p>
+                <button class="btn btn-primary rounded-btn">Commencer la visite</button>
+            </div>
+        </div>
+    </div>
+    <div class="container grid px-6 mx-auto opacity-60">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            Les derniers livres
+        </h2>
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            {% for livre in books %}
+                <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                    <div>
+                        <img class="mr-4" src="{{ livre.jaquette }}" alt="" aria-hidden="true" />
+                    </div>
+                    <div class="flex items-center ">
+                        <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm-1-5a1 1 0 112 0v3a1 1 0 11-2 0v-3zm1-5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                                {{ livre.title }}
+                            </p>
+                            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                                {{ livre.author }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

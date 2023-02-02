@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-xl text-center text-white my-5">Modification du livre {{book.title}}</h1>
+
+    <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/books/edit/{{book.id}}/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label class="label-text" for="title">Titre</label>
+        <input class="input w-full mb-2" type="text" name="title" id="title" value="{{book.title}}">
+        <label class="label-text" for="author">Auteur</label>
+        <input class="input w-full mb-2" type="text" name="author" id="author" value="{{book.author}}">
+        <label class="label-text" for="jaquette">Jaquette</label>
+        <input class="input w-full mb-2" type="text" name="jaquette" id="jaquette" value="{{book.jaquette}}">
+        <label class="label-text" for="editeur">Edteur</label>
+        <input class="input w-full mb-2" type="text" name="editeur" id="editeur" value="{{book.editeur}}">
+        <label class="label-text" for="collection">Collection</label>
+        <input class="input w-full mb-2" type="text" name="collection" id="collection" value="{{book.collection}}">
+        <label class="label-text" for="genre">Genre</label>
+        <input class="input w-full mb-2" type="text" name="genre" id="genre" value="{{book.genre}}">
+        <label class="label-text" for="librairie">Librairie</label>
+        <select class="input w-full mb-2" name="librairie" id="librairie">
+            {% for librairie in librairies %}
+                <option value="{{librairie.id}}">{{librairie.nom}}</option>
+            {% endfor %}
+        </select>
+        <input class="btn" type="submit" value="Modifier">
+    </form>
+{% endblock %}

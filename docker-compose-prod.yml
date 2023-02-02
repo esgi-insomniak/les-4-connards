@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  l4c-web-service:
+    build: .
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/var/www
+    env_file:
+      - .env
+    ports:
+      - "${WEB_HTTPS_PORT}:8000"
+    environment:
+      - POSTGRES_NAME=${POSTGRES_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_USER_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

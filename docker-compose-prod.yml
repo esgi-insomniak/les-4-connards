@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/var/www
+    env_file:
+      - .env
+    ports:
+      - "${WEB_HTTPS_PORT}:8000"

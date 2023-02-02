@@ -63,7 +63,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-CSRF_TRUSTED_ORIGINS = [os.environ.get('TRUSTED_DOMAINS')]
+CSRF_TRUSTED_ORIGINS = [os.environ.get('TRUSTED_DOMAINS') or 'http://localhost:8000']
 
 ROOT_URLCONF = 'les_4_connards.urls'
 

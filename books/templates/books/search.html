@@ -1,39 +1,96 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="text-xl text-white m-5">Votre recherche pour <b>{{ search }}</b> : </h1>
-    {% if books %}
-        <div class="flex justify-around flex-wrap">
-            {% for book in books %}
-            <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-1/4 m-5">
-                <div class="mx-auto">
-                    <img class="mr-4 w-full" src="{{ book.jaquette }}" alt="" aria-hidden="true" />
-                </div>
-                <div class="flex items-center ">
-                    <div>
-                        <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                            {{ book.title }}
-                        </p>
-                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            {{ book.author }}
-                        </p>
-                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            Librairie : {{ book.Librairie }} - {{ librairie.adresse }}
-                        </p>
-                        {% if book.statut %}
-                        <p>Date de retour le : {{book.date_retour}}</p>
-                        {% else %}
-                        <div class="flex flex-col">
-                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Livre disponnible</p>
-                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Veuillez vous rapprochez de votre librairie</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
+    <form action="#" method="get" class="container p-6 mx-auto">
+        <h1 class="text-xl text-white">Rechercher un livre</h1>
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-2 justify-center">
+            <div class="form-control w-full max-w-xs">
+              <label class="label" for="title">
+                <span class="label-text">Titre</span>
+              </label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Entrez un titre..."
+                class="input input-bordered w-full max-w-xs"
+                value="{{ request.GET.title }}"
+              />
             </div>
-            {% endfor %}
+
+            <div class="form-control w-full max-w-xs">
+              <label class="label" for="author">
+                <span class="label-text">Filtrer par auteur</span>
+              </label>
+              <select class="select select-bordered" id="author" name="author">
+                <option disabled selected>Choisissez un auteur</option>
+                {% for author in authors %}
+                    {% if request.GET.author == author %}
+                        <option value="{{ author }}" selected>{{ author }}</option>
+                    {% else %}
+                        <option value="{{ author }}">{{ author }}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-control w-full max-w-xs">
+                <label class="label" for="genre">
+                    <span class="label-text">Filtrer par genre</span>
+                </label>
+                <select class="select select-bordered" id="genre" name="genre">
+                    <option disabled selected>Choisissez un genre</option>
+                    {% for genre in genres %}
+                        {% if request.GET.genre == genre %}
+                            <option value="{{ genre }}" selected>{{ genre }}</option>
+                        {% else %}
+                            <option value="{{ genre }}">{{ genre }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label class="label cursor-pointer" for="dispo">
+                    <span class="label-text">Disponible ?</span>
+                </label>
+                <input
+                    type="checkbox"
+                    class="toggle"
+                    name="dispo"
+                    id="dispo"
+                    {% if request.GET.dispo %}
+                    checked
+                    {% endif %}
+                />
+            </div>
         </div>
-    {% else %}
-        <p>Pas de livre correspondant a votre recherche</p>
-    {% endif %}
+        <div class="flex items-center py-6 gap-4">
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+            <button
+                type="reset"
+                class="btn btn-outline"
+                onclick="document.location.href='{{ request.path }}'"
+            >Réinitialiser</button>
+            {% if user.is_staff %}
+                <a type="button" class="btn btn-outline" href="/books/new">Ajouter un livre</a>
+            {% endif %}
+        </div>
+    </form>
+
+
+    <div class="container grid px-6 mx-auto py-6">
+        <div class="flex justify-between items-center mb-4 xl:flex-row md:flex-col xs:flex-col">
+            <h1 class="text-xl text-white">Votre recherche pour <b>{{ search }}</b> : </h1>
+            {% include 'components/paginator/paginator.html' with paginator=books %}
+            <small class="text-white">Nombre de résultats : {{ books.paginator.count }}</small>
+        </div>
+
+        {% if books %}
+            {% include 'components/books/cards_grid.html' with books=books %}
+            {% include 'components/paginator/paginator.html' with paginator=books %}
+        {% else %}
+            <p>Pas de livre correspondant a votre recherche</p>
+        {% endif %}
+    </div>
 {% endblock %}

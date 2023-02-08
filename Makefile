@@ -12,7 +12,7 @@ clean-install:
 	docker-compose up -d
 
 clean-install-prod:
-	docker-compose down --remove-orphans --volumes
+	docker-compose -f docker-compose-prod.yml down --remove-orphans --volumes
 	docker-compose -f docker-compose-prod.yml build --no-cache --pull --force-rm
 	docker-compose -f docker-compose-prod.yml up -d
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="coffee">
+<html lang="fr" data-theme="coffee">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,24 +15,21 @@
           </div>
           <div>
             <div>
-                <a class="m-3 hover:text-white" href="/books">Livre</a>
+                <a class="m-3 hover:text-white" href="/books/search">Livres</a>
                 <a class="m-3 hover:text-white" href="/lecture">Lecture</a>
-                <a class="m-3 hover:text-white" href="/librairie">Librairie</a>
+                <a class="m-3 hover:text-white" href="/librairie">Librairies</a>
                 <a class="m-3 hover:text-white" href="/forum">Forum</a>
             </div>
           </div>
           <div class="flex-none gap-2">
-            <form action="/books/search/" method="POST">
-              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-              <input type="text" name="q" placeholder="Rechercher un livre..." class="input input-bordered" />
-              <input type="submit" value="Rechercher" class="btn btn-primary" />
+            <form action="/books/search/" method="GET">
+              <input type="text" name="title" placeholder="Rechercher un livre..." class="input input-bordered" />
+              <input type="submit" value="Rechercher" class="btn btn-secondary" />
             </form>
             {% if user.is_authenticated %}
               <div class="dropdown dropdown-end">
                   <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                      <div class="w-10 rounded-full">
-                          <img alt="profile_picture" src="https://placeimg.com/80/80/people" />
-                      </div>
+                      <img class="w-10 rounded-full" alt="profile_picture" src="https://placeimg.com/80/80/people" />
                   </label>
                   <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                       <li>

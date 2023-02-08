@@ -1,44 +1,78 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="flex justify-around">
-    <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-1/4 m-5">
-        <div class="mx-auto">
-            <img class="mr-4 w-full" src="{{ book.jaquette }}" alt="" aria-hidden="true" />
+
+
+<div class="container flex flex-col items-center justify-center p-6">
+    <div class="grid grid-cols-3 gap-4">
+        {% include 'components/books/card.html' with livre=book %}
+        <ul class="menu bg-base-800 w-56">
+            <li class="menu-title">
+                <span>Informations</span>
+            </li>
+            <li><a>Titre : {{ book.title }}</a></li>
+            <li><a>Editeur : {{ book.editor }}</a></li>
+            <li><a>Collection : {{ book.collection }}</a></li>
+            <li class="menu-title">
+                <span>Auteurs</span>
+            </li>
+            {% for author in book.author_as_list %}
+            <li>
+                <a href="/books/search/?author={{ author }}">{{ author }}</a>
+            </li>
+            {% endfor %}
+            <li class="menu-title">
+                <span>Genres</span>
+            </li>
+            {% for genre in book.genre_as_list %}
+            <li>
+                <a href="/books/search/?genre={{ genre }}">{{ genre }}</a>
+            </li>
+            {% endfor %}
+            <li class="menu-title">
+                <span>Historique d'emprunts</span>
+            </li>
+
+        </ul>
+
+        {% if librairie.id == request.user.id or user.is_superuser%}
+        <div class="card bg-gray-800 p-3 h-full">
+            <h1 class="text-xl text-center my-5">Panel Librairie</h1>
+            <h2 class="text-lg my-5">Emprunter un livre</h2>
+            <form action="/books/loan/{{librairie.id}}/" method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <label class="label-text" for="livre">Livre</label>
+                <select class="input w-full mb-2" name="livre" id="livre">
+                    {% for livre in livres %}
+                        {% if livre.statut == False %}
+                            <option value="{{ livre.id }}">{{ livre.title }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label class="label-text" for="utilisateur">Utilisateur</label>
+                <select class="input w-full mb-2" name="utilisateur" id="utilisateur">
+                    {% for utilisateur in utilisateurs %}
+                        {% if utilisateur.is_staff == False %}
+                            <option value="{{ utilisateur.id }}">{{ utilisateur.username }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">What is your name?</span>
+                </label>
+                <input type="text" placeholder="Jane Doe" class="input input-bordered">
+
+                <label class="label-text" for="date_emprunt">Date d'emprunt</label>
+                <input class="input w-full mb-2" type="date" name="date_emprunt" id="date_emprunt">
+                <label class="label-text" for="date_retour">Date de retour</label>
+                <input class="input w-full mb-2" type="date" name="date_retour" id="date_retour">
+                <input class="btn btn-primary w-full" type="submit" value="Emprunter">
+            </form>
         </div>
-        <div class="flex items-center ">
-            <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm-1-5a1 1 0 112 0v3a1 1 0 11-2 0v-3zm1-5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-            <div>
-                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {{ book.title }}
-                </p>
-                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    {{ book.author }}
-                </p>
-                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    Librairie : {{ book.Librairie }} - {{ librairie.adresse }}
-                </p>
-                {% if book.statut %}
-                <p>Date de retour le : {{book.date_retour}}</p>
-                {% else %}
-                <div class="flex flex-col">
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Livre disponible</p>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Veuillez vous rapprochez de votre librairie</p>
-                </div>
-                {% endif %}
-            </div>
-        </div>
+        {% endif %}
+
     </div>
-    {% if librairie.id == request.user.id or user.is_superuser%}
-    <div class="card bg-white p-3 h-full m-5 w-1/4">
-        <h1 class="text-xl text-center my-5">Panel Librairie</h1>
-        <p class="mt-5 text-center">
-            <a href="/books/loan/{{librairie.id}}" class="btn btn-primary">Lancer un emprunt</a>
-        </p>
-    </div>
-    {% endif %}
 </div>
+
 {% endblock %}

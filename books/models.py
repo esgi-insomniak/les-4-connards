@@ -20,6 +20,8 @@ class Books(models.Model):
 
     def genre_as_list(self):
         return self.genre.split(',')
+    def author_as_list(self):
+        return self.author.split(',')
     def __str__(self):
         return self.title
 

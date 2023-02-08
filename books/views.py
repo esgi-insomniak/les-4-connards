@@ -25,7 +25,7 @@ def detail(request, book_id):
         librairie = Librairie.objects.get(nom=book.Librairie)
     else:
         librairie = None
-    return render(request, 'books/detail.html', {'books': book, 'librairie': librairie})
+    return render(request, 'books/detail.html', {'book': book, 'librairie': librairie})
 
 def create_new_book(request):
     if request.user.is_superuser or request.user.is_staff:

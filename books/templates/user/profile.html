@@ -45,21 +45,20 @@ Mon Profile
         <h1 class="text-xl text-white text-center my-5">Mes futures sessions de lectures</h1>
         <div class="flex justify-around mx-auto w-full flex-wrap m-5">
             {% for lecture in lectures %}
-            {% if lecture.date|date:"Y-m-d" > now|date:"Y-m-d" %}
-            <div class="card w-96 bg-white shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">{{ lecture.Books }}</h2>
-                    <p>Lieux : {{ lecture.lieux }}</p>
-                    <p>Date et heures : {{lecture.date}} - {{ lecture.heure }}</p>
-                    <div class="card-actions justify-end">
-                        <a class="btn btn-primary" href="/librairie/detail/{{lecture.Librairie.id}}">Localiser la
-                            librairie</a>
+                {% if lecture.date|date:"Y-m-d" > now|date:"Y-m-d" %}
+                <div class="card w-96 bg-white shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ lecture.Books }}</h2>
+                        <p>Lieux : {{ lecture.lieux }}</p>
+                        <p>Date et heures : {{lecture.date}} - {{ lecture.heure }}</p>
+                        <div class="card-actions justify-end">
+                            <a class="btn btn-primary" href="/librairie/detail/{{lecture.Librairie.id}}">Localiser la
+                                librairie</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
             {% endfor %}
-            {% endif %}
         </div>
     </div>
 </div>

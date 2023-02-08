@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="text-xl text-center text-white my-5">Modification du livre {{book.title}}</h1>
+    <h1 class="text-xl text-center text-white my-5">Ajout d'un livre</h1>
 
     <form class="card bg-white p-3 m-5 w-1/2 mx-auto" action="/books/new/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
@@ -11,7 +11,7 @@
         <input class="input w-full mb-2" type="text" name="author" id="author">
         <label class="label-text" for="jaquette">Jaquette</label>
         <input class="input w-full mb-2" type="text" name="jaquette" id="jaquette">
-        <label class="label-text" for="editeur">Edteur</label>
+        <label class="label-text" for="editeur">Editeur</label>
         <input class="input w-full mb-2" type="text" name="editeur" id="editeur">
         <label class="label-text" for="collection">Collection</label>
         <input class="input w-full mb-2" type="text" name="collection" id="collection">
@@ -23,6 +23,6 @@
                 <option value="{{librairie.id}}">{{librairie.nom}}</option>
             {% endfor %}
         </select>
-        <input class="btn" type="submit" value="Modifier">
+        <input class="btn" type="submit" value="Ajouter">
     </form>
 {% endblock %}

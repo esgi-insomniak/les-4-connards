@@ -32,7 +32,7 @@ def librairie(request):
 
 def librairie_detail(request, librairie_id):
     librairie = get_object_or_404(Librairie, pk=librairie_id)
-    books = Books.objects.filter(Librairie=librairie.nom)
+    books = Books.objects.filter(Librairie=librairie.id)
     return render(request, 'librairie/detail.html', {'librairie': librairie, 'books': books})
 
 def create_new_librairie(request):
@@ -41,6 +41,7 @@ def create_new_librairie(request):
             librairie = Librairie(
                 nom = request.POST['nom'],
                 adresse = request.POST['adresse'],
+                ville = request.POST['ville'],
                 telephone = request.POST['telephone'],
                 email = request.POST['email'],
             )
@@ -63,10 +64,12 @@ def edit_librairie(request, librairie_id):
     if request.user.is_superuser:
         librairie = Librairie.objects.get(pk=librairie_id)
         if request.method == 'POST':
-            librairie.nom = request.POST['nom'],
-            librairie.adresse = request.POST['adresse'],
-            librairie.telephone = request.POST['telephone'],
-            librairie.email = request.POST['email'],
+            print(request.POST)
+            librairie.nom = request.POST['nom']
+            librairie.adresse = request.POST['adresse']
+            librairie.ville = request.POST['ville']
+            librairie.telephone = request.POST['telephone']
+            librairie.email = request.POST['email']
             librairie.save()
             return render(request, 'librairie/detail.html', {'librairie': librairie})
         else:

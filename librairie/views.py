@@ -61,9 +61,8 @@ def create_new_librairie(request):
 
 def edit_librairie(request, librairie_id):
     if request.user.is_superuser:
-        
+        librairie = Librairie.objects.get(pk=librairie_id)
         if request.method == 'POST':
-            librairie = Librairie.objects.get(pk=librairie_id)
             librairie.nom = request.POST['nom'],
             librairie.adresse = request.POST['adresse'],
             librairie.telephone = request.POST['telephone'],

@@ -51,8 +51,8 @@ def edit_lecture(request, lecture_groupe_id):
             lecture.lieux = request.POST.get('lieux')
             lecture.date = request.POST.get('date')
             lecture.heure = request.POST.get('heure')
-            lecture.Books = Books.objects.get(pk=request.POST['livre']),
-            lecture.Librairie = Librairie.objects.get(pk=request.POST['librairie']),
+            lecture.Books = Books.objects.get(pk=request.POST['livre'])
+            lecture.Librairie = Librairie.objects.get(pk=request.POST['librairie'])
             lecture.save()
             return render(request, 'lecture/detail.html', {'lecture': lecture})
         else:

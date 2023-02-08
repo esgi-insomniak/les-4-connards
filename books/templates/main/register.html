@@ -4,64 +4,62 @@
 <div class="bg-no-repeat bg-cover bg-center relative">
 	<div class="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
 	  <div class="flex justify-center self-center mx-auto my-auto">
-		<div class="p-12 bg-white mx-auto rounded-2xl w-100 ">
+		<div class="p-12 bg-white mx-auto rounded-2xl w-100 dark:bg-gray-800 dark:text-gray-300">
 		  <div class="mb-4">
-			<h3 class="font-semibold text-2xl text-gray-800">Register</h3>
-			<p class="text-gray-500">Please register to access the website.</p>
+			<h3 class="font-semibold text-2xl text-gray-800 dark:text-gray-300">Inscription</h3>
+			<p class="text-gray-500 dark:text-gray-100">Créez votre compte pour accéder à votre espace personnel.</p>
 		  </div>
 		  <form method="POST">
 			{% csrf_token %}
 			<div class="space-y-5">
 			  <div class="space-y-2">
-				<label class="text-sm font-medium text-gray-700 tracking-wide">Username</label>
+				<label class="text-sm font-medium text-gray-700 tracking-wide dark:text-gray-100" for="username">Nom d'utilisateur</label>
 				<input
-				  class="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-				  type="text" placeholder="Username" name="username">
-				  <small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+				  class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="text" placeholder="Nom d'utilisateur" name="username" id="username">
+				  <small>Obligatoire. 150 caractères ou moins. Lettres, chiffres et @/./+/-/_ uniquement.</small>
 			  </div>
 			  <div class="space-y-2">
-				<label class="text-sm font-medium text-gray-700 tracking-wide">Email</label>
+				<label class="text-sm font-medium text-gray-700 tracking-wide dark:text-gray-100" for="email">Email</label>
 				<input
 				  class="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-				  type="email" placeholder="mail@mail.fr" name="email">
+				  type="email" placeholder="mail@mail.fr" name="email" id="email">
 			  </div>
 			  <div class="space-y-2">
-				<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide">
-				  Password
+				<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide dark:text-gray-100" for="password1">
+				  Mot de passe
 				</label>
 				<input
 				  class="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-				  type="password" placeholder="Enter your password" name="password1">
-				<small>
-					<ul>
-						<li>Your password can’t be too similar to your other personal information.</li>
-						<li>Your password must contain at least 8 characters.</li>
-						<li>Your password can’t be a commonly used password.</li>
-						<li>Your password can’t be entirely numeric.</li>
-					</ul>
-				</small>
+				  type="password" placeholder="Entrez un mot de passe" name="password1" id="password1">
+                <ul>
+                    <li><small>Le mot de passe ne doit pas contenir votre nom d'utilisateur, votre adresse e-mail ou d'autres informations personnelles.</small></li>
+                    <li><small>Le mot de passe doit contenir au moins 8 caractères.</small></li>
+                    <li><small>Le mot de passe ne doit pas être un mot de passe couramment utilisé.</small></li>
+                    <li><small>Le mot de passe ne doit pas être entièrement numérique.</small></li>
+                </ul>
 			  </div>
 			  <div class="space-y-2">
-				<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide">
-				  Confirm your password
+				<label class="mb-5 text-sm font-medium text-gray-700 dark:text-gray-100 tracking-wide" for="password2">
+				  Confirmez votre mot de passe
 				</label>
 				<input
-				  class="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-				  type="password" placeholder="Confirm your password" name="password2">
+				  class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
+				  type="password" placeholder="Confirmez votre mot de passe" name="password2" id="password2">
 				<small>
-					Enter the same password as before, for verification.
+                    Entrez le même mot de passe que ci-dessus, pour vérification.
 				</small>
 			  </div>
 			  <div>
 				<button type="submit"
-				  class="w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-				  Register
+				  class="w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+				  S'inscrire
 				</button>
 			  </div>
 			  <div>
 				<a href="{% url 'login' %}" class="w-full flex justify-center bg-gray-400  hover:bg-gray-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-				  If you already have an account, Login instead.
-				  </a>
+                    Si vous avez déjà un compte, connectez-vous à la place.
+                </a>
 			  </div>
 			</div>
 		  </form>

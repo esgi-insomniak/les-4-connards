@@ -1,0 +1,5 @@
+<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+    {% for book in books %}
+        {% include 'components/books/card.html' with livre=book %}
+    {% endfor %}
+</div>

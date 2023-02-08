@@ -1,0 +1,25 @@
+<div class="card bg-gray-800 shadow-lg hover:shadow-2xl hover:bg-primary hover:text-gray-100 transition duration-300 ease-in-out cursor-pointer">
+  <figure class="h-[500px]" style="align-items: start">
+      <img class="h-full w-full" src="{{ livre.jaquette }}" alt="jaquette" aria-hidden="true" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">
+        <span class="max-w-[175px] truncate">{{ livre.title }}</span>
+        {% if book.statut %}
+        <div class="badge badge-success">Disponible</div>
+        {% else %}
+        <div class="badge badge-error">Indisponible</div>
+        {% endif %}
+    </h2>
+    <small>{{ livre.author }}</small>
+    <p class="font-semibold text-gray-700 dark:text-gray-200">Librairie : {{ livre.Librairie }} - {{ librairie.adresse }}</p>
+    {% if book.statut %}
+    <p>Date de retour le : {{ livre.date_retour }}</p>
+    {% endif %}
+    <div class="card-actions justify-end">
+        {% for genre in livre.genre_as_list %}
+            <div class="badge badge-outline">{{ genre }}</div>
+        {% endfor %}
+    </div>
+  </div>
+</div>

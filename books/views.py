@@ -1,4 +1,6 @@
 import json
+
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -58,7 +60,6 @@ def edit_book(request, book_id):
             book.save()
             return render(request, 'books/detail.html', {'books': book})
         else:
-            print("ca passe pas")
             return render(request, 'books/update.html', {'books': book, 'librairies': librairie})
     else:
         return render(request, 'books/index.html')
@@ -67,9 +68,7 @@ def delete_book(request, book_id):
     if request.user.is_superuser:
         book = get_object_or_404(Books, pk=book_id)
         book.delete()
-        return render(request, 'books/index.html')
-    else:
-        return render(request, 'books/index.html')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def search_book(request):
     search_title = request.GET.get('title', '')
@@ -136,7 +135,7 @@ def loan_book(request, librairie_id):
         context = {
             'latest_question_list': book_list,
         }
-        return render(request, 'books/index.html', context)
+    return render(request, 'books/index.html', context)
 
 def loan_list(request, librairie_id):
     librairie = Librairie.objects.get(pk=librairie_id)
@@ -149,7 +148,7 @@ def loan_list(request, librairie_id):
         context = {
             'latest_question_list': book_list,
         }
-        return render(request, 'books/index.html', context)
+    return render(request, 'books/index.html', context)
 
 def return_book(request, loan_id):
     loan = Loan.objects.get(pk=loan_id)

@@ -35,7 +35,9 @@
 {% if librairie.id == request.user.id or user.is_superuser%}
 <div class="card bg-white p-3 h-full m-5 w-1/4">
     <h1 class="text-xl text-center my-5">Panel Librairie</h1>
-    <p class="mt-5 text-center"><a href="/books/loan/{{librairie.id}}" class="btn btn-primary">Lancer un emprunt</a></p>
+    <p class="mt-5 text-center">
+        <a href="/books/loan/{{librairie.id}}" class="btn btn-primary">Lancer un emprunt</a>
+    </p>
 </div>
 {% endif %}
 </div>

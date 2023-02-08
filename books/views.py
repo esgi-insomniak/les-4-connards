@@ -20,9 +20,12 @@ def index(request):
     return render(request, 'books/index.html', context)
 
 def detail(request, book_id):
-    question = get_object_or_404(Books, pk=book_id)
-    librairie = Librairie.objects.get(nom=question.Librairie)
-    return render(request, 'books/detail.html', {'books': question, 'librairie': librairie})
+    book = get_object_or_404(Books, pk=book_id)
+    if book.Librairie:
+        librairie = Librairie.objects.get(nom=book.Librairie)
+    else:
+        librairie = None
+    return render(request, 'books/detail.html', {'books': book, 'librairie': librairie})
 
 def create_new_book(request):
     if request.user.is_superuser or request.user.is_staff:

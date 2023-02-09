@@ -36,13 +36,10 @@
         {% endif %}
     </h2>
     <small>{{ livre.author }}</small>
-    <p class="font-semibold text-gray-700 dark:text-gray-200">Librairie :
-        {% if livre.Librairie and librairie.adresse %}
-            {{ livre.Librairie }} - {{ librairie.adresse }}
-        {% else %}
-            Non renseignée
-        {% endif %}
-    </p>
+    <div>
+        <p class="font-semibold text-gray-700 dark:text-gray-200">{{ livre.Librairie.nom }}</p>
+        <p class="font-semibold text-gray-700 dark:text-gray-200">{{ livre.Librairie.adresse }}</p>
+    </div>
     {% if book.statut %}
     <p>Date de retour le : {{ livre.date_retour }}</p>
     {% endif %}

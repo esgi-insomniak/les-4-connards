@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from datetime import datetime
+from operator import or_
+from functools import reduce
+from django.db.models import Q
 
 from books.models import Books, Loan
 from lecture.models import Lecture
@@ -39,7 +42,8 @@ def login_request(request):
 	return render(request=request, template_name="main/login.html", context={"login_form":form})
 
 def index(request):
-	books = Books.objects.all().order_by('?')[:4]
+	blacklist = ['Ecchi', 'Hentai', 'Erotica']
+	books = Books.objects.exclude(reduce(or_, [Q(genre__icontains=row) for row in blacklist])).order_by('?')[:4]
 	return render(request, 'main/index.html', {'books': books})
 
 def logout_request(request):
